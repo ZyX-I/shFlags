@@ -95,8 +95,7 @@ _flags_fatal() { echo "flags:FATAL $@" >&2; }
 
 # specific shell checks
 if [ -n "${ZSH_VERSION:-}" ]; then
-  setopt |grep "^shwordsplit$" >/dev/null
-  if [ $? -ne ${FLAGS_TRUE} ]; then
+  if [[ "$(unset IFS; A='a  b'; echo -n $A)" != "a b" ]]; then
     _flags_fatal 'zsh shwordsplit option is required for proper zsh operation'
     exit ${FLAGS_ERROR}
   fi
